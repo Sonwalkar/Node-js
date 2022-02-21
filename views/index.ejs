@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="URls content">
+        <% if(URLSData.length == 0) { %>
+            <p>No short urls found</p>
+        <% }else{ %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>SR. No.</th>
+                        <th class="longURL">Long URL</th>
+                        <th>Short URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% URLSData.forEach((urlInfo, index) =>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><a href="<%= urlInfo.longURL %>" target="__blank"><%= urlInfo.longURL %></a></td>
+                            <td><a href="<%= urlInfo.shortURL %>" target="__blank">localhost:3000/<%= urlInfo.shortURL %></a></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+
+        <% } %>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>

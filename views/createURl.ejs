@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="createURL content">
+        <form action="createURL", method="POST">
+            <input type="url" class="newURL" placeholder="Enter or paste long links" name="longURL" required autofocus>
+            <button>Submit</button>
+        </form>
+        <div class="shortLink"></div>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', (e)=>{
+            e.preventDefault();
+            const longURL = document.querySelector('.newURL').value;
+            fetch('/createURL',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    longURL,
+                }),
+            })
+            .then(response => response.json())
+            .then(data=>{
+                console.log(data.shortURL);
+                const shortLink = "<a href='localhost:3000/"+data.shortURL+">localhost:3000/"+data.shortURL+"</a>"
+                console.log(shortLink);
+                const newLink = document.createElement('a')
+                newLink.href = data.shortURL
+                newLink.innerText = `localhost:3000/${data.shortURL}`
+                newLink.target = '__blank'
+
+                document.querySelector('.shortLink').innerText = 'Your short link is : '
+                document.querySelector('.shortLink').appendChild(newLink)
+                
+                // document.querySelector('.shortLink').innerHTML = shortLink
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+        })
+    </script>
+</body>
+</html>
