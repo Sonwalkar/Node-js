@@ -5,7 +5,7 @@ const URLS = require('./module/urls')
 
 const app = express()
 
-const dbURI = "mongodb+srv://akshay-node:123asd@node-tuts.mucut.mongodb.net/node-project?retryWrites=true&w=majority"
+const dbURI = //mongodb url
 
 mongoose.connect(dbURI)
     .then((result)=>{
